@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/page_check.dart';
+import 'package:flutterapp/user_auth.dart';
 
 class LoginPage extends StatefulWidget {
+  LoginPage({this.auth, this.loginCheck});
 
+  final BaseAuth auth;
+  final VoidCallback loginCheck;
 
   @override
   State<StatefulWidget> createState() => new _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final _formKey = new GlobalKey<FormState>();
+
   bool _isLoading = false;
   bool _isLoginForm = false;
 
-  String _email;
-  String _password;
-  String _errorMessage;
+  String _email = "";
+  String _password = "";
+  //String _errorMessage = "";
 
-  final _formKey = new GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +46,14 @@ class _LoginPageState extends State<LoginPage> {
       height: 0.0,
       width: 0.0,
     );
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    //_errorMessage = "";
+    _isLoading = false;
+    _isLoginForm = true;
   }
 
   Widget showLogo(){
@@ -108,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
             color: Colors.black,
             child: new Text(_isLoginForm ? 'Login' : 'Create account',
                 style: new TextStyle(fontSize: 20.0, color: Colors.black)),
+            onPressed: validateAndSubmit,
           ),
         ));
   }
@@ -132,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
   ///Reset the forms so that they do not display a string
   void resetForm() {
     _formKey.currentState.reset();
-    _errorMessage = "";
+    //_errorMessage = "";
   }
 
   // Check if form is valid before perform login or signup
@@ -162,6 +178,42 @@ class _LoginPageState extends State<LoginPage> {
 //    }
 //  }
 
+  void validateAndSubmit() async {
+    setState(() {
+      //_errorMessage = "";
+      _isLoading = true;
+    });
+
+    if(validateAndSave()){
+      String userId = "";
+      try{
+        if(_isLoginForm){
+          userId = await widget.auth.userSignIn(_email, _password);
+          print('Signed in: $userId');
+        }
+        else{
+          userId = await widget.auth.userSignUp(_email, _password);
+          print('Signed up user: $userId');
+        }
+        setState(() {
+          _isLoading = false;
+        });
+
+        if(userId.length > 0 && userId != null && _isLoginForm){
+          widget.loginCheck();
+        }
+      }
+      catch(e){
+        print('Error: $e');
+        setState(() {
+          _isLoading = false;
+          //_errorMessage = e.toString();
+          _formKey.currentState.reset();
+        });
+      }
+    }
+  }
+
   Widget showForm() {
     return new Container(
         padding: EdgeInsets.all(16.0),
@@ -181,5 +233,4 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 }
-
 

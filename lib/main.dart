@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/user_auth.dart';
 import 'login_page.dart';
 
-void main() => runApp(MyTaskApp());
+void main() => runApp(new MyTaskApp());
 
 class MyTaskApp extends StatelessWidget {
   @override
@@ -11,8 +12,7 @@ class MyTaskApp extends StatelessWidget {
         theme: new ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: new LoginPage()
-    );
+        home: new LoginPage(auth: new Authentication(), loginCheck: null,));
   }
 }
 
