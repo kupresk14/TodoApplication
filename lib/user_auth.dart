@@ -23,6 +23,7 @@ abstract class BaseAuth {
 }
 
 class Authentication implements BaseAuth{
+
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<String> userSignIn(String email, String password) async {

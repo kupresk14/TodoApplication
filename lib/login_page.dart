@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
             hintText: 'Email',
             icon: new Icon(
               Icons.mail,
-              color: Colors.grey,
+              color: Colors.black,
             )),
         validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
         onSaved: (value) => _email = value.trim(),
@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
             hintText: 'Password',
             icon: new Icon(
               Icons.lock,
-              color: Colors.grey,
+              color: Colors.black,
             )),
         validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
         onSaved: (value) => _password = value.trim(),
@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: new BorderRadius.circular(10.0)),
             color: Colors.black,
             child: new Text(_isLoginForm ? 'Login' : 'Create account',
-                style: new TextStyle(fontSize: 20.0, color: Colors.black)),
+                style: new TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: validateAndSubmit,
           ),
         ));

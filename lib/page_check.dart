@@ -24,8 +24,6 @@ class _PageState extends State<PageCheck> {
   LogStatus logStatus = LogStatus.NOT_DET;
   String _userId = "";
 
-  _PageState page = new _PageState();
-
   @override
   void initState(){
     super.initState();
@@ -34,7 +32,7 @@ class _PageState extends State<PageCheck> {
         if(user != null){
           _userId = user?.uid;
         }
-        logStatus = user?.uid == null ? LogStatus.NOT_LOGGED_IN : LogStatus.LOGGED_IN;
+        logStatus = user?.uid == null ? LogStatus.LOGGED_IN : LogStatus.NOT_LOGGED_IN;
       });
     });
   }
@@ -80,7 +78,11 @@ class _PageState extends State<PageCheck> {
         break;
       case LogStatus.LOGGED_IN:
         if(_userId.length > 0 && _userId != null){
-          print("IT WORKS HELL YESS");
+          return new ToDoList(
+            auth: widget.auth,
+            userId: _userId,
+            logoutCheck: logoutCheck,
+          );
         }
         else {
           return waitingScreen();
