@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/user_auth.dart';
 import 'package:flutterapp/page_check.dart';
+import 'package:flutterapp/todo_task.dart';
+import 'package:flutterapp/todo_page.dart';
 
-void main() => runApp(new MyTaskApp());
+void main(){
+  runApp(new MyTaskApp());
+}
 
 class MyTaskApp extends StatelessWidget {
   @override
@@ -12,7 +16,12 @@ class MyTaskApp extends StatelessWidget {
         theme: new ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: new PageCheck(auth: new Authentication()));
+        home: new PageCheck(auth: new Authentication()),
+        routes: <String, WidgetBuilder>{
+          '/task':(BuildContext context) => ToDoTask(title: 'Task'),
+          '/home':(BuildContext context) => ToDoList(),
+        },);
   }
 }
+
 

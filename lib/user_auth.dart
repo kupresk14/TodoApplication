@@ -28,7 +28,6 @@ class Authentication implements BaseAuth{
 
   Future<String> userSignIn(String email, String password) async {
     AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-    print(result.toString());
     FirebaseUser user = result.user;
     return user.uid;
   }
@@ -36,8 +35,6 @@ class Authentication implements BaseAuth{
   Future<String> userSignUp(String email, String password) async {
     AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
     FirebaseUser user = result.user;
-    assert(user != null);
-    assert(await user.getIdToken() != null);
     return user.uid;
   }
 

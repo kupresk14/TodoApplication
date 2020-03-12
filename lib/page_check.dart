@@ -16,7 +16,6 @@ class PageCheck extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() => new _PageState();
-
 }
 
 class _PageState extends State<PageCheck> {
@@ -32,7 +31,7 @@ class _PageState extends State<PageCheck> {
         if(user != null){
           _userId = user?.uid;
         }
-        logStatus = user?.uid == null ? LogStatus.LOGGED_IN : LogStatus.NOT_LOGGED_IN;
+        logStatus = user?.uid == null ? LogStatus.NOT_LOGGED_IN : LogStatus.LOGGED_IN;
       });
     });
   }
@@ -80,7 +79,7 @@ class _PageState extends State<PageCheck> {
         if(_userId.length > 0 && _userId != null){
           return new ToDoList(
             auth: widget.auth,
-            userId: _userId,
+            uid: _userId,
             logoutCheck: logoutCheck,
           );
         }
