@@ -5,7 +5,6 @@ import 'package:flutterapp/todolist.dart';
 import 'package:flutterapp/user_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class ToDoList extends StatefulWidget {
   ToDoList({Key key, this.auth, this.uid, this.logoutCheck})
       : super(key: key);
@@ -63,6 +62,8 @@ class ToDoListState extends State<ToDoList> {
                         return new ToDo(
                           title: document['title'],
                           description: document['description'],
+                          uid: widget.uid,
+                          taskId: document.documentID,
                         );
                       }).toList()
                     );
@@ -89,13 +90,13 @@ class ToDoListState extends State<ToDoList> {
             Expanded(
               child: TextField(
                 autofocus: true,
-                decoration: InputDecoration(labelText: 'Task Title*'),
+                decoration: InputDecoration(labelText: 'Task Title'),
                 controller: todoTitleController,
               ),
             ),
             Expanded(
               child: TextField(
-                decoration: InputDecoration(labelText: 'Task Description*'),
+                decoration: InputDecoration(labelText: 'Task Description'),
                 controller: todoDescController,
               ),
             )
@@ -122,7 +123,8 @@ class ToDoListState extends State<ToDoList> {
                     "title": todoTitleController.text,
                     "description": todoDescController.text,
                   })
-                      .then((result) => {
+                      .then((result) =>
+                  {
                     Navigator.pop(context),
                     todoTitleController.clear(),
                     todoDescController.clear(),

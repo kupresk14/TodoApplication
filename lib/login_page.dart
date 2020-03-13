@@ -23,19 +23,22 @@ class _LoginPageState extends State<LoginPage> {
   String _password = "";
   //String _errorMessage = "";
 
-
+  ///Adding ability to close the keyboard on tap outside of fields and keyboard
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-//        appBar: new AppBar(
-//          title: new Text("Login Test"),
-//        ),
         body: Stack(
           children: <Widget>[
+            GestureDetector(
+              onTap: (){
+                print("Works");
+              },
+            ),
             showForm(),
             showCircularProgress(),
           ],
-        ));
+        )
+    );
   }
 
   Widget showCircularProgress(){
@@ -232,5 +235,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ));
   }
+
 }
 
